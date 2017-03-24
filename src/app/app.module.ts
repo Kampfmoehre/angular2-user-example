@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
+import { UserdataService } from './userdata.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { UsersComponent } from './users/users.component';
         }
     ])
   ],
-  providers: [],
+  providers: [ UserdataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
