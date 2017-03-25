@@ -23,6 +23,7 @@ describe('UsersComponent', () => {
   });
 
   it(`should have as title 'Users View'`, () => {
+    fixture.detectChanges();
     expect(component.title).toEqual('Users View');
   });
 

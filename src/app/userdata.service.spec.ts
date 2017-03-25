@@ -3,6 +3,7 @@ import { Http, BaseRequestOptions, XHRBackend, ResponseOptions, Response } from 
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { UserdataService } from './userdata.service';
+import { User } from './user';
 
 describe('UserdataService', () => {
   let subject: UserdataService = null;
@@ -30,9 +31,34 @@ describe('UserdataService', () => {
   }));
 
   it('getUsers should call endpoint and return users', (inject([UserdataService, MockBackend], (userdataService: UserdataService, backend: MockBackend) => {
+
+    let user1 = {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+          "lat": "-37.3159",
+          "lng": "81.1496"
+        }
+      },
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "company": {
+        "name": "Romaguera-Crona",
+        "catchPhrase": "Multi-layered client-server neural-net",
+        "bs": "harness real-time e-markets"
+      }
+    };
+
     backend.connections.subscribe((connection: MockConnection) => {
       let options = new ResponseOptions({
-        body: JSON.stringify([{ name: 'Bruce' }])
+        body: JSON.stringify([user1])
       });
       connection.mockRespond(new Response(options));
     });
@@ -40,7 +66,8 @@ describe('UserdataService', () => {
     userdataService
       .getUsers()
       .then((response) => {
-        expect(response).toEqual([{ Name: 'Bruce' }]);
+        console.log(response);
+        expect(response).toEqual([user1]);
       });
   })));
 });

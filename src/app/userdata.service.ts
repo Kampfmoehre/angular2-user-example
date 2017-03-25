@@ -13,7 +13,7 @@ export class UserdataService {
   getUsers(): Promise<User[]> {
     return this.http.get(this.dataUrl + '/user')
       .toPromise()
-      .then(response => response.json().data as User[])
+      .then(response => response.json() as User[])
       .catch(this.handleError);
   }
 

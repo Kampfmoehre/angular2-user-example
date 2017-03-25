@@ -5,10 +5,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
-  title: 'Users View';
+export class UsersComponent implements OnInit {
+  title = 'Users View';
 
-  constructor() { }
+  constructor() {}
 
-
+  ngOnInit() {}
 }
