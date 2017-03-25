@@ -65,8 +65,8 @@ describe('UsersComponent', () => {
 
   it('should render title in a h2 tag', async(() => {
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('Users View');
+    const element = fixture.debugElement.nativeElement;
+    expect(element.querySelector('h2').textContent).toContain('Users View');
   }));
 
   it('should load users after initialization', async(() => {

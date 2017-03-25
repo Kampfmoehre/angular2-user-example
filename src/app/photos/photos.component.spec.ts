@@ -44,7 +44,6 @@ describe('PhotosComponent', () => {
   let fixture: ComponentFixture<PhotosComponent>;
   let ussSpy: UserdataServiceSpy;
   let activatedRoute: ActivatedRouteStub;
-  let location: LocationMock;
 
   beforeEach(async(() => {
     activatedRoute = new ActivatedRouteStub();
