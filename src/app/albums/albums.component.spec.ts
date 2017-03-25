@@ -7,6 +7,7 @@ import { AlbumsComponent } from './albums.component';
 import { UserdataService } from '../userdata.service';
 
 import { Album } from '../model/album';
+import { User } from '../model/user';
 
 import { ActivatedRouteStub } from '../../testing/router-stubs';
 
@@ -15,11 +16,20 @@ class UserdataServiceSpy {
     id: 12,
     title: 'Fancy album'
   };
+  testUser: User = {
+    name: 'Rob Halford',
+    address: null
+  };
 
   getUserAlbums = jasmine.createSpy('getUserAlbums').and.callFake(
     () => Promise
       .resolve(true)
       .then(() => Object.assign({}, [this.testAlbum]))
+  )
+  getUser = jasmine.createSpy('getUser').and.callFake(
+    () => Promise
+      .resolve(true)
+      .then(() => Object.assign({}, this.testUser))
   )
 }
 
@@ -65,16 +75,16 @@ describe('AlbumsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'Users View'`, () => {
+  it(`title should contain the name of the user`, () => {
+    // First change detection triggers ngOnInit where the user is loaded
     fixture.detectChanges();
-    expect(component.title).toEqual('Albums View');
+    expect(ussSpy.getUser.calls.count()).toBe(1, 'getUser called once');
+    fixture.whenStable().then(() => {
+      // second change detection after the user is loaded
+      fixture.detectChanges();
+      expect(component.title).toEqual('Albums of user ' + ussSpy.testUser.name);
+    });
   });
-
-  it('should render title in a h2 tag', async(() => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('Albums View');
-  }));
 
   it('should load albums after initialization', async(() => {
     // This calls ngOnInit() on the component fixture

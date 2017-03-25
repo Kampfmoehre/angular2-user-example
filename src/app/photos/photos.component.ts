@@ -13,7 +13,7 @@ import { Photo } from '../model/photo';
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit {
-  title = 'Photos View';
+  title: string;
   photos: Photo[];
 
   constructor(private userdataService: UserdataService,
@@ -24,6 +24,9 @@ export class PhotosComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.userdataService.getUserPhotos(+params['albumid']))
       .subscribe(photos => this.photos = photos);
+    this.route.params
+      .switchMap((params: Params) => this.userdataService.getAlbum(+params['albumid']))
+      .subscribe(album => this.title = 'Photos of album "' + album.title + '"');
   }
 
   goBack(): void {

@@ -19,10 +19,24 @@ export class UserdataService {
       .catch(this.handleError);
   }
 
+  getUser(id: number): Promise<User> {
+    return this.http.get(this.dataUrl + '/users/' + id)
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
   getUserAlbums(userId: number): Promise<Album[]> {
     return this.http.get(this.dataUrl + '/albums?userId=' + userId)
       .toPromise()
       .then(response => response.json() as Album[])
+      .catch(this.handleError);
+  }
+
+  getAlbum(albumId: number): Promise<Album> {
+    return this.http.get(this.dataUrl + '/albums/' + albumId)
+      .toPromise()
+      .then(response => response.json() as Album)
       .catch(this.handleError);
   }
 

@@ -5,6 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PhotosComponent } from './photos.component';
 import { UserdataService } from '../userdata.service';
 
+import { Album } from '../model/album';
 import { Photo } from '../model/photo';
 
 import { ActivatedRouteStub } from '../../testing/router-stubs';
@@ -16,11 +17,21 @@ class UserdataServiceSpy {
     thumbnailUrl: '',
     url: ''
   };
+  testAlbum: Album = {
+    id: 12,
+    title: 'Panorama'
+  };
 
   getUserPhotos = jasmine.createSpy('getUserPhotos').and.callFake(
     () => Promise
       .resolve(true)
       .then(() => Object.assign({}, [this.testPhoto]))
+  )
+
+  getAlbum = jasmine.createSpy('getAlbum').and.callFake(
+    () => Promise
+      .resolve(true)
+      .then(() => Object.assign({}, [this.testAlbum]))
   )
 }
 
@@ -65,16 +76,17 @@ describe('PhotosComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'Photos View'`, () => {
+  it('title should contain the name of the album', () => {
+    // First change detection triggers ngOnInit where the user is loaded
     fixture.detectChanges();
-    expect(component.title).toEqual('Photos View');
-  });
+    expect(ussSpy.getAlbum.calls.count()).toBe(1, 'getAlbum called once');
 
-  it('should render title in a h2 tag', async(() => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('Photos View');
-  }));
+    fixture.whenStable().then(() => {
+      // second change detection after the user is loaded
+      fixture.detectChanges();
+      expect(component.title).toEqual('Photos of album "' + ussSpy.testAlbum.title + '"');
+    });
+  });
 
   it('should load photos after initialization', async(() => {
     // This calls ngOnInit() on the component fixture
