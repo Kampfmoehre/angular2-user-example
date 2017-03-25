@@ -11,7 +11,7 @@ export class UserdataService {
   constructor(private http: Http) { }
 
   getUsers(): Promise<User[]> {
-    return this.http.get(this.dataUrl + '/user')
+    return this.http.get(this.dataUrl + '/users')
       .toPromise()
       .then(response => response.json() as User[])
       .catch(this.handleError);

@@ -66,7 +66,6 @@ describe('UserdataService', () => {
     userdataService
       .getUsers()
       .then((response) => {
-        console.log(response);
         expect(response).toEqual([user1]);
       });
   })));
