@@ -7,11 +7,13 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserdataService } from './userdata.service';
+import { AlbumsComponent } from './albums/albums.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent
+    UsersComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +23,9 @@ import { UserdataService } from './userdata.service';
         {
             path: 'users',
             component: UsersComponent
+        }, {
+            path: 'users/:userid/albums',
+            component: AlbumsComponent
         }
     ])
   ],

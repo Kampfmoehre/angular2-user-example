@@ -1,11 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { User } from '../user';
 import { UsersComponent } from './users.component';
 import { UserdataService } from '../userdata.service';
 
-class UserdataServiceSpy {
-  testUsers: User[] = [{name: 'Dickinson, Bruce'}];
+import { Address } from '../model/address';
+import { User } from '../model/user';
+
+export class UserdataServiceSpy {
+  testAddress: Address = {
+    street: '',
+    suite: '',
+    city: '',
+    zipcode: ''
+  };
+  testUser: User = {
+    name: 'Dickinson, Bruce',
+    address: this.testAddress
+  };
+  testUsers: User[] = [this.testUser];
 
   getUsers = jasmine.createSpy('getUsers').and.callFake(
     () => Promise
@@ -21,7 +34,8 @@ describe('UsersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersComponent ]
+      declarations: [ UsersComponent ],
+      imports: [ RouterTestingModule ]
     })
     .overrideComponent(UsersComponent, {
       set: {

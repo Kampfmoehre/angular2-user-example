@@ -2,7 +2,7 @@
 <div class="grid grid-pad">
     <div *ngFor="let user of users" class="col-1-3">
         <div class="module user">
-            <h4>{{user.name}}</h4>
+            <a [routerLink]="['/users', user.id, 'albums']">{{user.name}}</a>
             <div>
                 <div class="subheading">Address</div>
                 <label>Street: </label>{{user.address.street}}

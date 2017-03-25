@@ -13,6 +13,7 @@ https://angular.io/docs/ts/latest/tutorial/toh-pt5.html
 }
 a {
   text-decoration: none;
+  position: relative;
 }
 *, *:after, *:before {
   -webkit-box-sizing: border-box;
@@ -21,9 +22,6 @@ a {
 }
 h3 {
   text-align: center; margin-bottom: 0;
-}
-h4 {
-  position: relative;
 }
 .grid {
   margin: 0;
@@ -70,4 +68,5 @@ label {
 }
 .subheading {
     font-weight: bold;
+    margin-top: 10px;
 }

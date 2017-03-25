@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { User } from './user';
+import { Album } from './model/album';
+import { User } from './model/user';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -14,6 +15,13 @@ export class UserdataService {
     return this.http.get(this.dataUrl + '/users')
       .toPromise()
       .then(response => response.json() as User[])
+      .catch(this.handleError);
+  }
+
+  getUserAlbums(id: number) {
+    return this.http.get(this.dataUrl + '/albums?userId=' + id)
+      .toPromise()
+      .then(response => response.json() as Album[])
       .catch(this.handleError);
   }
 

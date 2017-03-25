@@ -3,7 +3,6 @@ import { Http, BaseRequestOptions, XHRBackend, ResponseOptions, Response } from 
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { UserdataService } from './userdata.service';
-import { User } from './user';
 
 describe('UserdataService', () => {
   let subject: UserdataService = null;
@@ -30,8 +29,8 @@ describe('UserdataService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('getUsers should call endpoint and return users', (inject([UserdataService, MockBackend], (userdataService: UserdataService, backend: MockBackend) => {
-
+  it('getUsers should call endpoint and return users',
+    (inject([UserdataService, MockBackend], (userdataService: UserdataService, backend: MockBackend) => {
     let user1 = {
       "id": 1,
       "name": "Leanne Graham",
@@ -67,6 +66,28 @@ describe('UserdataService', () => {
       .getUsers()
       .then((response) => {
         expect(response).toEqual([user1]);
+      });
+  })));
+
+  it('getUserAlbums should call endpoint and return albums',
+    (inject([UserdataService, MockBackend], (userdataService: UserdataService, backend: MockBackend) => {
+    let album1 = {
+      "userId": 2,
+      "id": 11,
+      "title": "quam nostrum impedit mollitia quod et dolor"
+    };
+
+    backend.connections.subscribe((connection: MockConnection) => {
+      let options = new ResponseOptions({
+        body: JSON.stringify([album1])
+      });
+      connection.mockRespond(new Response(options));
+    });
+
+    userdataService
+      .getUserAlbums(2)
+      .then((response) => {
+        expect(response).toEqual([album1]);
       });
   })));
 });
