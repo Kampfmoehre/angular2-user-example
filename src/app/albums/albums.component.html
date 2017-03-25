@@ -1,4 +1,7 @@
 <h2>{{title}}</h2>
-<div *ngFor="let album of albums">
-    <span>{{album.title}}</span>
-</div>
+<ul>
+    <li *ngFor="let album of albums">
+        <a [routerLink]="['/albums', album.id, 'photos']">{{album.title}}</a>
+    </li>
+</ul>
+<button (click)="goBack()">Back</button>

@@ -90,4 +90,28 @@ describe('UserdataService', () => {
         expect(response).toEqual([album1]);
       });
   })));
+
+  it('getUserPhotos should call endpoint and return photos',
+    (inject([UserdataService, MockBackend], (userdataService: UserdataService, backend: MockBackend) => {
+    let photo1 = {
+      "albumId": 3,
+      "id": 101,
+      "title": "incidunt alias vel enim",
+      "url": "http://placehold.it/600/e743b",
+      "thumbnailUrl": "http://placehold.it/150/e743b"
+    };
+
+    backend.connections.subscribe((connection: MockConnection) => {
+      let options = new ResponseOptions({
+        body: JSON.stringify([photo1])
+      });
+      connection.mockRespond(new Response(options));
+    });
+
+    userdataService
+      .getUserPhotos(2)
+      .then((response) => {
+        expect(response).toEqual([photo1]);
+      });
+  })));
 });

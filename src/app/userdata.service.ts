@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Album } from './model/album';
+import { Photo } from './model/photo';
 import { User } from './model/user';
 
 import 'rxjs/add/operator/toPromise';
@@ -18,10 +19,17 @@ export class UserdataService {
       .catch(this.handleError);
   }
 
-  getUserAlbums(id: number) {
-    return this.http.get(this.dataUrl + '/albums?userId=' + id)
+  getUserAlbums(userId: number): Promise<Album[]> {
+    return this.http.get(this.dataUrl + '/albums?userId=' + userId)
       .toPromise()
       .then(response => response.json() as Album[])
+      .catch(this.handleError);
+  }
+
+  getUserPhotos(albumId: number): Promise<Photo[]> {
+    return this.http.get(this.dataUrl + '/photos?albumId=' + albumId)
+      .toPromise()
+      .then(response => response.json() as Photo[])
       .catch(this.handleError);
   }
 

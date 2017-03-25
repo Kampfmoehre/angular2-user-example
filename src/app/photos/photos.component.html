@@ -1,0 +1,10 @@
+<h2>{{title}}</h2>
+<div class="grid">
+    <div *ngFor="let photo of photos" class="col-1-5">
+        <span>{{photo.title}}</span>
+        <a target="_blank" href="{{photo.url}}">
+            <img src="{{photo.thumbnailUrl}}" alt="{{photo.title}}">
+        </a>
+    </div>
+</div>
+<button (click)="goBack()" style="clear: both; float: left;">Back</button>

@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserdataService } from './userdata.service';
 import { AlbumsComponent } from './albums/albums.component';
+import { PhotosComponent } from './photos/photos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    PhotosComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,9 @@ import { AlbumsComponent } from './albums/albums.component';
         }, {
             path: 'users/:userid/albums',
             component: AlbumsComponent
+        }, {
+            path: 'albums/:albumid/photos',
+            component: PhotosComponent
         }
     ])
   ],
